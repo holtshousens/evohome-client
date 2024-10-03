@@ -4,9 +4,15 @@ from datetime import datetime;
 import time;
 import configparser;
 
+projectLocation = "C:\\Users\\holts\\OneDrive\\Documents\\GitHub\\evohome-client\\";
+
+configPath = projectLocation + "config.ini";
+
+print("retrieve config file" + configPath)
+
 config = configparser.ConfigParser()
 
-config.read("config.ini")
+config.read(configPath)
 
 databasename = config.get('DB', 'dbname');
 server = config.get('DB', 'dbserver');
@@ -28,7 +34,8 @@ def insert_zones(thermostat, id, name, temp, setpoint):
     cursor.execute(sSQL);
     
     print('id: ' + id + ' inserted')
-    
+    #logging.info('id: ' + id + ' inserted')
+
     cursor.commit();
 
 # Infinite loop every 5 minutes, send temperatures to sql
@@ -45,7 +52,11 @@ while True:
         connection.close();
     except:
         print("Error when connecting to internet");
+        #logging.error("Error when connecting to internet");
+
         connection.close();
 
-    print ("Going to sleep for 2 minutes")
-    time.sleep(120)
+    print ("Going to sleep for 5 minutes");
+    #logging.info("Error when connecting to internet");
+
+    time.sleep(300)
